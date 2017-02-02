@@ -1,0 +1,7 @@
+<RCC>
+    <qresource prefix="/">
+        <file>spider1.bmp</file>
+        <file>WomanAndDog.jpg</file>
+        <file>super_spy.bmp</file>
+    </qresource>
+</RCC>
