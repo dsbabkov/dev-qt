@@ -20,7 +20,7 @@ protected:
 private:
     void drawWeb();
     void beginDrawingWeb();
-    void displayPositionTip(const QPoint &localPos) const;
+    void displayPositionTip(const QPoint &localPos);
 
 private:
     bool isDrawing_ = false;

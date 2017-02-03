@@ -99,10 +99,10 @@ void Spider::beginDrawingWeb()
     setCursor(*spiderCursor_);
 }
 
-void Spider::displayPositionTip(const QPoint &localPos) const
+void Spider::displayPositionTip(const QPoint &localPos)
 {
     QToolTip::showText(mapToGlobal(localPos),
                        QStringLiteral("x = %1; y = %2")
-                       .arg(pos->x())
-                       .arg(pos->y()), this);
+                       .arg(localPos.x())
+                       .arg(localPos.y()), this);
 }
