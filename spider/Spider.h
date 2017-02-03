@@ -15,10 +15,12 @@ protected:
     virtual void mousePressEvent(QMouseEvent *event) override;
     virtual void mouseMoveEvent(QMouseEvent *event) override;
     virtual void mouseReleaseEvent(QMouseEvent *event) override;
-    virtual void paintEvent(QPaintEvent *event) override;
+    virtual void paintEvent(QPaintEvent *) override;
 
 private:
     void drawWeb();
+    void beginDrawingWeb();
+    void displayPositionTip(const QPoint &localPos) const;
 
 private:
     bool isDrawing_ = false;

@@ -4,11 +4,12 @@
 #include <QMouseEvent>
 #include <QToolTip>
 #include <QPainter>
+#include <functional>
 
 std::unique_ptr<QPixmap> Spider::spiderCursor_;
 
 Spider::Spider(QWidget *parent)
-    : QWidget(parent, Qt::WindowStaysOnTopHint)
+    : QWidget(parent/*, Qt::WindowStaysOnTopHint*/)
 {
     setWindowTitle(tr("Spider"));
     setWindowIcon(QIcon(":/spider1.bmp"));
@@ -17,8 +18,7 @@ Spider::Spider(QWidget *parent)
     palette.setColor(QPalette::Active, QPalette::Window, Qt::white);
     const QPixmap pixmap(":/WomanAndDog.jpg");
     palette.setBrush(QPalette::Inactive, QPalette::Window, QBrush(pixmap));
-    setMaximumSize(pixmap.size());
-    resize(pixmap.size());
+    setFixedSize(pixmap.size());
 
     setPalette(palette);
     setWindowOpacity(0.5);
@@ -28,28 +28,19 @@ Spider::Spider(QWidget *parent)
     }
 }
 
-Spider::~Spider()
-{
-
-}
+Spider::~Spider() = default;
 
 void Spider::mousePressEvent(QMouseEvent *event)
 {
-    switch (event->button()){
-    case Qt::LeftButton:{
-        isDrawing_ = true;
-        update();
-        setCursor(*spiderCursor_);
+    const std::map<Qt::MouseButton, std::function<void()>> methodMap = {
+        {Qt::LeftButton, std::bind(beginDrawingWeb, this)},
+        {Qt::RightButton, [this, event]{if (event->modifiers() & Qt::CTRL){displayPositionTip(event->pos());}}}
+    };
+
+    try{
+        methodMap.at(event->button())();
     }
-    case Qt::RightButton:{
-        if (event->modifiers() & Qt::CTRL){
-            QToolTip::showText(event->globalPos(),
-                               QStringLiteral("x = %1; y = %2")
-                               .arg(event->x())
-                               .arg(event->y()), this);
-        }
-    }
-    }
+    catch (const std::out_of_range &){}
 }
 
 void Spider::mouseMoveEvent(QMouseEvent *event)
@@ -75,7 +66,7 @@ void Spider::mouseReleaseEvent(QMouseEvent *event)
     }
 }
 
-void Spider::paintEvent(QPaintEvent *event)
+void Spider::paintEvent(QPaintEvent *)
 {
     if (isDrawing_){
         drawWeb();
@@ -99,4 +90,19 @@ void Spider::drawWeb()
                           pos, {center.x(), 0},
                           pos, {center.x(), rect.height()}
                       });
+}
+
+void Spider::beginDrawingWeb()
+{
+    isDrawing_ = true;
+    update();
+    setCursor(*spiderCursor_);
+}
+
+void Spider::displayPositionTip(const QPoint &localPos) const
+{
+    QToolTip::showText(mapToGlobal(localPos),
+                       QStringLiteral("x = %1; y = %2")
+                       .arg(pos->x())
+                       .arg(pos->y()), this);
 }
