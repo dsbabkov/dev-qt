@@ -1,3 +1,4 @@
 TEMPLATE = subdirs
 
-SUBDIRS = spider 
+SUBDIRS = spider \
+    Sig_slots_layout
