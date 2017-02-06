@@ -43,7 +43,11 @@ MainWindow::MainWindow(QWidget *parent)
 
 MainWindow::~MainWindow()
 {
-    dumpObjectTree();
+    mainLayout_->removeItem(mainLayout_->itemAt(0));
+    delete hLayout_;
+    delete vLayout_;
+    delete gridLayout_;
+    delete stackLayoutWraper_;
 }
 
 void MainWindow::setupHLayout() const
