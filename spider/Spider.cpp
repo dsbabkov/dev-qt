@@ -33,7 +33,7 @@ Spider::~Spider() = default;
 void Spider::mousePressEvent(QMouseEvent *event)
 {
     const std::map<Qt::MouseButton, std::function<void()>> methodMap = {
-        {Qt::LeftButton, std::bind(beginDrawingWeb, this)},
+        {Qt::LeftButton, std::bind(&Spider::beginDrawingWeb, this)},
         {Qt::RightButton, [this, event]{if (event->modifiers() & Qt::CTRL){displayPositionTip(event->pos());}}}
     };
 
@@ -99,10 +99,10 @@ void Spider::beginDrawingWeb()
     setCursor(*spiderCursor_);
 }
 
-void Spider::displayPositionTip(const QPoint &localPos) const
+void Spider::displayPositionTip(const QPoint &localPos)
 {
     QToolTip::showText(mapToGlobal(localPos),
                        QStringLiteral("x = %1; y = %2")
-                       .arg(pos->x())
-                       .arg(pos->y()), this);
+                       .arg(localPos.x())
+                       .arg(localPos.y()), this);
 }
