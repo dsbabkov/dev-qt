@@ -10,7 +10,8 @@ int main(int argc, char *argv[])
     a.installTranslator(&translator);
 
     Spider w;
-    w.showMaximized();
+    w.show();
+//    w.showMaximized();
 
     return a.exec();
 }

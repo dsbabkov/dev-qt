@@ -18,7 +18,7 @@ Spider::Spider(QWidget *parent)
     palette.setColor(QPalette::Active, QPalette::Window, Qt::white);
     const QPixmap pixmap(":/WomanAndDog.jpg");
     palette.setBrush(QPalette::Inactive, QPalette::Window, QBrush(pixmap));
-    setFixedSize(pixmap.size());
+//    setFixedSize(pixmap.size());
 
     setPalette(palette);
     setWindowOpacity(0.5);
@@ -71,6 +71,13 @@ void Spider::paintEvent(QPaintEvent *)
     if (isDrawing_){
         drawWeb();
     }
+}
+
+void Spider::resizeEvent(QResizeEvent *event)
+{
+    setWindowTitle(tr("Spider") + tr(": width=%1, height=%2")
+                   .arg(event->size().width())
+                   .arg(event->size().height()));
 }
 
 void Spider::drawWeb()
