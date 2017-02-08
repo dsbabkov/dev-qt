@@ -4,6 +4,7 @@
 #include <QMouseEvent>
 #include <QToolTip>
 #include <QPainter>
+#include <QDesktopWidget>
 #include <functional>
 
 std::unique_ptr<QPixmap> Spider::spiderCursor_;
@@ -19,6 +20,7 @@ Spider::Spider(QWidget *parent)
     const QPixmap pixmap(":/WomanAndDog.jpg");
     palette.setBrush(QPalette::Inactive, QPalette::Window, QBrush(pixmap));
 //    setFixedSize(pixmap.size());
+    setMaximumSize(pixmap.size());
 
     setPalette(palette);
     setWindowOpacity(0.5);
@@ -26,6 +28,8 @@ Spider::Spider(QWidget *parent)
     if (!spiderCursor_){
         spiderCursor_.reset(new QPixmap(":/super_spy.bmp"));
     }
+
+    move(QDesktopWidget().rect().width() / 2, 0);
 }
 
 Spider::~Spider() = default;
