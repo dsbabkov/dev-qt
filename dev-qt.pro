@@ -1,4 +1,5 @@
 TEMPLATE = subdirs
 
 SUBDIRS = spider \
-    Sig_slots_layout
+    Sig_slots_layout \
+    designer
