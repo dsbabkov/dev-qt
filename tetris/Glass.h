@@ -49,6 +49,7 @@ private:
     void squeezeField();
 
     int obstacleRow(int column) const;
+    bool canMoveHorizontal(int steps) const;
 
 private:
     static constexpr int timerInterval = 200;

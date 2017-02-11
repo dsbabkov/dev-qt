@@ -4,6 +4,7 @@
 #include "Figure.h"
 #include <functional>
 #include <QKeyEvent>
+#include <QMessageBox>
 
 Glass::Glass(QWidget *parent)
     : QWidget(parent)
@@ -58,8 +59,16 @@ void Glass::startNewGame()
 void Glass::moveFigureDown()
 {
     const int column = currentFigure_->column();
+    const int obstacle = obstacleRow(column);
 
-    if (currentFigure_->bottom() == obstacleRow(column)){
+    if(currentFigure_->bottom() > obstacle){
+        running_ = false;
+        killTimer(timerId_);
+        timerId_ = {};
+        QMessageBox::information(this, tr("Game over"), tr("Time to do some work"));
+    }
+
+    if (currentFigure_->bottom() == obstacle){
         dropFigure();
     }
     else{
@@ -121,14 +130,14 @@ void Glass::createEmptyField()
 
 void Glass::moveFigureLeft() const
 {
-    if (currentFigure_->column() != 0){
+    if (canMoveHorizontal(-1)){
         currentFigure_->moveLeft();
     }
 }
 
 void Glass::moveFigureRight() const
 {
-    if (currentFigure_->column() != static_cast<int>(columnCount_ - 1)){
+    if (canMoveHorizontal(1)){
         currentFigure_->moveRight();
     }
 }
@@ -214,6 +223,7 @@ void Glass::removeLines()
         for (const QPoint &cell: removeCells){
             field_[cell.x()][cell.y()] = emptyCellColor;
         }
+        score_ += removeCells.count();
 
         if (removeCells.isEmpty()){
             break;
@@ -249,5 +259,19 @@ int Glass::obstacleRow(int column) const
     int result = 0;
     for (; result < static_cast<int>(rowCount_) && field_.at(result).at(column) == emptyCellColor; ++result);
     return result;
+}
+
+bool Glass::canMoveHorizontal(int steps) const
+{
+    const int destColumn = currentFigure_->column() + steps;
+    if (0 <= destColumn && destColumn < static_cast<int>(columnCount_)){
+        for (int i = currentFigure_->top(); i < currentFigure_->bottom(); ++i){
+            if (field_.at(i).at(destColumn) != emptyCellColor){
+                return false;
+            }
+        }
+        return true;
+    }
+    return false;
 }
 
