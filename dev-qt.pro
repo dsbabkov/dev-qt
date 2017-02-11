@@ -2,4 +2,5 @@ TEMPLATE = subdirs
 
 SUBDIRS = spider \
     Sig_slots_layout \
-    designer
+    designer \
+    tetris
