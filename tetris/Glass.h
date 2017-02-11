@@ -51,6 +51,9 @@ private:
     int obstacleRow(int column) const;
     bool canMoveHorizontal(int steps) const;
 
+signals:
+    void scoreChanged(int);
+
 private:
     static constexpr int timerInterval = 200;
 

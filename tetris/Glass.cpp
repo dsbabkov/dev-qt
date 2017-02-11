@@ -50,6 +50,8 @@ void Glass::startNewGame()
     currentFigure_.reset(new Figure());
     nextFigure_.reset(new Figure());
     setFocus();
+    score_ = 0;
+    emit scoreChanged(0);
 
     timerId_ = startTimer(timerInterval);
 
@@ -223,10 +225,13 @@ void Glass::removeLines()
         for (const QPoint &cell: removeCells){
             field_[cell.x()][cell.y()] = emptyCellColor;
         }
-        score_ += removeCells.count();
 
         if (removeCells.isEmpty()){
             break;
+        }
+        else{
+            score_ += removeCells.count();
+            emit scoreChanged(score_);
         }
     }
     squeezeField();
