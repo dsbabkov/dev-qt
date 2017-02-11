@@ -160,6 +160,7 @@ void Glass::dropFigure()
 
 QVector<QPoint> Glass::findLineToRemove() const
 {
+    //columns
     for (int j = 0; j < static_cast<int>(columnCount_); ++j){
         QColor lastColor = field_.first().at(j);
         int lastColorRow = 0;
@@ -178,6 +179,28 @@ QVector<QPoint> Glass::findLineToRemove() const
             }
             lastColor = cellColor;
             lastColorRow = i;
+        }
+    }
+
+    //rows
+    for (int i = 0; i < static_cast<int>(rowCount_); ++i){
+        QColor lastColor = field_.at(i).first();
+        int lastColorColumn = 0;
+        for (int j = 1; j < static_cast<int>(columnCount_); ++j){
+            const QColor &cellColor = field_.at(i).at(j);
+            if (cellColor == lastColor){
+                continue;
+            }
+
+            if (j - lastColorColumn >= 3 && lastColor != emptyCellColor){
+                QVector<QPoint> result;
+                for (int k = lastColorColumn; k < j; ++k){
+                    result.append({i, k});
+                }
+                return result;
+            }
+            lastColor = cellColor;
+            lastColorColumn = j;
         }
     }
 
