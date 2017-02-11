@@ -193,13 +193,32 @@ void Glass::removeLines()
         }
 
         if (removeCells.isEmpty()){
-            return;
+            break;
         }
     }
+    squeezeField();
 }
 
 void Glass::squeezeField()
 {
+    for (int j = 0; j < static_cast<int>(columnCount_); ++j){
+        for (int i = static_cast<int>(rowCount_ - 1); i > 0; --i){
+            QColor &cell = field_[i][j];
+            if (cell == emptyCellColor){
+                QColor *nextCell = {};
+                for (int k = i - 1; k >= 0; --k){
+                    QColor &cell2 = field_[k][j];
+                    if (cell2 != emptyCellColor){
+                        nextCell = &cell2;
+                        break;
+                    }
+                }
+                if (nextCell){
+                    std::swap(cell, *nextCell) ;
+                }
+            }
+        }
+    }
 }
 
 int Glass::obstacleRow(int column) const
