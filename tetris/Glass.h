@@ -53,6 +53,7 @@ private:
 
 signals:
     void scoreChanged(int);
+    void nextFigureChanged(Figure *);
 
 private:
     static constexpr int timerInterval = 200;

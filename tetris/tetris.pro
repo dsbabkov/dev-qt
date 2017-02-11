@@ -10,11 +10,13 @@ CONFIG += c++14
 SOURCES += main.cpp\
         MainWindow.cpp \
     Glass.cpp \
-    Figure.cpp
+    Figure.cpp \
+    NextFigure.cpp
 
 HEADERS  += MainWindow.h \
     Glass.h \
     Figure.h \
-    Global.h
+    Global.h \
+    NextFigure.h
 
 FORMS    += MainWindow.ui

@@ -49,6 +49,7 @@ void Glass::startNewGame()
     createEmptyField();
     currentFigure_.reset(new Figure());
     nextFigure_.reset(new Figure());
+    emit nextFigureChanged(nextFigure_.get());
     setFocus();
     score_ = 0;
     emit scoreChanged(0);
@@ -166,6 +167,7 @@ void Glass::dropFigure()
 
     currentFigure_ = std::move(nextFigure_);
     nextFigure_.reset(new Figure());
+    emit nextFigureChanged(nextFigure_.get());
     removeLines();
 }
 

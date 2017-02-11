@@ -101,12 +101,12 @@
        </widget>
       </item>
       <item>
-       <widget class="QFrame" name="nextFigure">
-        <property name="frameShape">
-         <enum>QFrame::StyledPanel</enum>
-        </property>
-        <property name="frameShadow">
-         <enum>QFrame::Raised</enum>
+       <widget class="NextFigure" name="nextFigure" native="true">
+        <property name="minimumSize">
+         <size>
+          <width>0</width>
+          <height>100</height>
+         </size>
         </property>
        </widget>
       </item>
@@ -187,7 +187,14 @@
    <container>1</container>
    <slots>
     <slot>startNewGame()</slot>
+    <slot>scoreChanged(int)</slot>
    </slots>
+  </customwidget>
+  <customwidget>
+   <class>NextFigure</class>
+   <extends>QWidget</extends>
+   <header>NextFigure.h</header>
+   <container>1</container>
   </customwidget>
  </customwidgets>
  <resources/>
@@ -237,6 +244,22 @@
     <hint type="destinationlabel">
      <x>238</x>
      <y>56</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>exitAct</sender>
+   <signal>triggered()</signal>
+   <receiver>MainWindow</receiver>
+   <slot>close()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>-1</x>
+     <y>-1</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>199</x>
+     <y>149</y>
     </hint>
    </hints>
   </connection>
