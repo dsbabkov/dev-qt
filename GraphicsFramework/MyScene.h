@@ -4,6 +4,11 @@
 
 class QAbstractGraphicsShapeItem;
 
+enum FugureType{
+    Rectangle,
+    Ellipce
+};
+
 class MyScene : public QGraphicsScene
 {
     Q_OBJECT
@@ -12,6 +17,8 @@ public:
 
     void setColor(const QColor &color);
     QColor color() const;
+
+    void setFigureType(FugureType figureType);
 
 public slots:
     void setPen(const QPen &pen);
@@ -26,4 +33,5 @@ private:
     bool drawingInProgress_;
     QPointF startPoint_;
     QPen pen_;
+    FugureType figureType_;
 };

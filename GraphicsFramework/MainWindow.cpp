@@ -44,6 +44,15 @@ void MainWindow::setupButtonGroup()
 
     actionGroup->addAction(ui->rectangleAct);
     actionGroup->addAction(ui->ellipceAct);
+
+    std::map<QAction *, FugureType> actionMap = {
+        {ui->rectangleAct, Rectangle},
+        {ui->ellipceAct, Ellipce}
+    };
+
+    MyScene *scene = static_cast<MyScene *>(ui->graphicsView->scene());
+
+    connect(actionGroup, &QActionGroup::triggered, [this, actionMap, scene](QAction *action){scene->setFigureType(actionMap.at(action));});
 }
 
 void MainWindow::createLineEditDialog()
