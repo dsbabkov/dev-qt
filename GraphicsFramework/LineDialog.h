@@ -19,6 +19,7 @@ public:
     ~LineDialog();
 
 signals:
+    void penChanged(const QPen &) const;
     void penAccepted(const QPen &) const;
 
 private:

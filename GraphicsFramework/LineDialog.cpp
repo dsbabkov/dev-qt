@@ -8,7 +8,16 @@ LineDialog::LineDialog(QWidget *parent) :
 {
     ui->setupUi(this);
     fillStylerCombo();
+
     connect(this, &LineDialog::accepted, [this]{emit penAccepted(pen());});
+
+    connect(ui->widthSpn, static_cast<void (QSpinBox::*)(int)>(&QSpinBox::valueChanged), [this]{emit penChanged(pen());});
+    connect(ui->styleCmb, static_cast<void (QComboBox::*)(int)>(&QComboBox::currentIndexChanged), [this]{emit penChanged(pen());});
+    connect(ui->redSlider, &QSlider::valueChanged, [this]{emit penChanged(pen());});
+    connect(ui->greenSlider, &QSlider::valueChanged, [this]{emit penChanged(pen());});
+    connect(ui->blueSlider, &QSlider::valueChanged, [this]{emit penChanged(pen());});
+
+    connect(this, &LineDialog::penChanged, ui->example, &LineExample::setPen);
 }
 
 LineDialog::~LineDialog()
@@ -38,9 +47,9 @@ void LineDialog::fillStylerCombo() const
 QPen LineDialog::pen() const
 {
     QPen result;
-    result.setColor({ui->redSlider->value(),
+    result.setColor(QColor(ui->redSlider->value(),
                      ui->greenSlider->value(),
-                     ui->blueSlider->value()});
+                     ui->blueSlider->value()));
     result.setWidth(ui->widthSpn->value());
     result.setStyle(static_cast<Qt::PenStyle>(ui->styleCmb->currentData().toInt()));
 

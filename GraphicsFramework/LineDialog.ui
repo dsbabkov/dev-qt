@@ -67,6 +67,9 @@
       </item>
       <item>
        <widget class="QSlider" name="redSlider">
+        <property name="maximum">
+         <number>255</number>
+        </property>
         <property name="orientation">
          <enum>Qt::Horizontal</enum>
         </property>
@@ -81,6 +84,9 @@
       </item>
       <item>
        <widget class="QSlider" name="greenSlider">
+        <property name="maximum">
+         <number>255</number>
+        </property>
         <property name="orientation">
          <enum>Qt::Horizontal</enum>
         </property>
@@ -95,6 +101,9 @@
       </item>
       <item>
        <widget class="QSlider" name="blueSlider">
+        <property name="maximum">
+         <number>255</number>
+        </property>
         <property name="orientation">
          <enum>Qt::Horizontal</enum>
         </property>
@@ -103,8 +112,26 @@
      </layout>
     </widget>
    </item>
+   <item row="1" column="1">
+    <widget class="LineExample" name="example">
+     <property name="frameShape">
+      <enum>QFrame::Panel</enum>
+     </property>
+     <property name="frameShadow">
+      <enum>QFrame::Raised</enum>
+     </property>
+    </widget>
+   </item>
   </layout>
  </widget>
+ <customwidgets>
+  <customwidget>
+   <class>LineExample</class>
+   <extends>QFrame</extends>
+   <header>LineExample.h</header>
+   <container>1</container>
+  </customwidget>
+ </customwidgets>
  <resources/>
  <connections>
   <connection>
