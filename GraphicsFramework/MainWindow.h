@@ -18,6 +18,7 @@ private slots:
 
 private:
     void setupButtonGroup();
+    void createLineEditDialog();
 
 private:
     Ui::MainWindow *ui;

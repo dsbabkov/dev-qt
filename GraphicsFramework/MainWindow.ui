@@ -59,6 +59,7 @@
      <string>&amp;Tools</string>
     </property>
     <addaction name="setColorAct"/>
+    <addaction name="lineEditAct"/>
    </widget>
    <addaction name="menuFile"/>
    <addaction name="menu_What"/>
@@ -114,7 +115,12 @@
   </action>
   <action name="setColorAct">
    <property name="text">
-    <string>Set &amp;color</string>
+    <string>Set &amp;color...</string>
+   </property>
+  </action>
+  <action name="lineEditAct">
+   <property name="text">
+    <string>Line edit...</string>
    </property>
   </action>
  </widget>

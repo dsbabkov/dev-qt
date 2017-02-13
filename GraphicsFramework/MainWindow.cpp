@@ -3,6 +3,7 @@
 #include "MyScene.h"
 #include <QActionGroup>
 #include <QColorDialog>
+#include "LineDialog.h"
 
 MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent),
@@ -14,6 +15,7 @@ MainWindow::MainWindow(QWidget *parent) :
     connect(ui->setColorAct, &QAction::triggered, this, &MainWindow::setColor);
 
     setupButtonGroup();
+    createLineEditDialog();
 }
 
 MainWindow::~MainWindow()
@@ -38,4 +40,13 @@ void MainWindow::setupButtonGroup()
 
     actionGroup->addAction(ui->rectangleAct);
     actionGroup->addAction(ui->ellipceAct);
+}
+
+void MainWindow::createLineEditDialog()
+{
+    LineDialog *lineDialog = new LineDialog(this);
+    connect(ui->lineEditAct, &QAction::triggered, lineDialog, &LineDialog::exec);
+
+    MyScene *scene = static_cast<MyScene *>(ui->graphicsView->scene());
+    connect(lineDialog, &LineDialog::penAccepted, scene, &MyScene::setPen);
 }

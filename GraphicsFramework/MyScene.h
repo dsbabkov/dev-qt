@@ -13,6 +13,9 @@ public:
     void setColor(const QColor &color);
     QColor color() const;
 
+public slots:
+    void setPen(const QPen &pen);
+
 protected:
     virtual void mousePressEvent(QGraphicsSceneMouseEvent *event) override;
     virtual void mouseMoveEvent(QGraphicsSceneMouseEvent *event) override;
@@ -22,5 +25,5 @@ private:
     QAbstractGraphicsShapeItem *current_;
     bool drawingInProgress_;
     QPointF startPoint_;
-    QColor color_;
+    QPen pen_;
 };

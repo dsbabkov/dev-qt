@@ -9,12 +9,15 @@ DEFINES += QT_DEPRECATED_WARNINGS
 
 SOURCES += main.cpp\
         MainWindow.cpp \
-    MyScene.cpp
+    MyScene.cpp \
+    LineDialog.cpp
 
 HEADERS  += MainWindow.h \
-    MyScene.h
+    MyScene.h \
+    LineDialog.h
 
-FORMS    += MainWindow.ui
+FORMS    += MainWindow.ui \
+    LineDialog.ui
 
 RESOURCES += \
     images.qrc
