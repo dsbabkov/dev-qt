@@ -16,6 +16,10 @@ MainWindow::MainWindow(QWidget *parent) :
 
     setupButtonGroup();
     createLineEditDialog();
+
+    connect(ui->rotateBtn, &QPushButton::clicked, [this]{ui->graphicsView->rotate(ui->angleSpn->value());});
+    connect(ui->scaleBtn, &QPushButton::clicked, [this]{ui->graphicsView->scale(ui->scaleFactorSpn->value(), ui->scaleFactorSpn->value());});
+    connect(ui->shearBtn, &QPushButton::clicked, [this]{ui->graphicsView->shear(ui->shearXSpn->value(), ui->shearYSpn->value());});
 }
 
 MainWindow::~MainWindow()
