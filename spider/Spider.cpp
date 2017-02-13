@@ -4,6 +4,7 @@
 #include <QMouseEvent>
 #include <QToolTip>
 #include <QPainter>
+#include <QDesktopWidget>
 #include <functional>
 
 std::unique_ptr<QPixmap> Spider::spiderCursor_;
@@ -18,7 +19,8 @@ Spider::Spider(QWidget *parent)
     palette.setColor(QPalette::Active, QPalette::Window, Qt::white);
     const QPixmap pixmap(":/WomanAndDog.jpg");
     palette.setBrush(QPalette::Inactive, QPalette::Window, QBrush(pixmap));
-    setFixedSize(pixmap.size());
+//    setFixedSize(pixmap.size());
+    setMaximumSize(pixmap.size());
 
     setPalette(palette);
     setWindowOpacity(0.5);
@@ -26,6 +28,8 @@ Spider::Spider(QWidget *parent)
     if (!spiderCursor_){
         spiderCursor_.reset(new QPixmap(":/super_spy.bmp"));
     }
+
+    move(QDesktopWidget().rect().width() / 2, 0);
 }
 
 Spider::~Spider() = default;
@@ -33,7 +37,7 @@ Spider::~Spider() = default;
 void Spider::mousePressEvent(QMouseEvent *event)
 {
     const std::map<Qt::MouseButton, std::function<void()>> methodMap = {
-        {Qt::LeftButton, std::bind(beginDrawingWeb, this)},
+        {Qt::LeftButton, std::bind(&Spider::beginDrawingWeb, this)},
         {Qt::RightButton, [this, event]{if (event->modifiers() & Qt::CTRL){displayPositionTip(event->pos());}}}
     };
 
@@ -71,6 +75,13 @@ void Spider::paintEvent(QPaintEvent *)
     if (isDrawing_){
         drawWeb();
     }
+}
+
+void Spider::resizeEvent(QResizeEvent *event)
+{
+    setWindowTitle(tr("Spider") + tr(": width=%1, height=%2")
+                   .arg(event->size().width())
+                   .arg(event->size().height()));
 }
 
 void Spider::drawWeb()
