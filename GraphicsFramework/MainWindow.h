@@ -13,6 +13,9 @@ public:
     explicit MainWindow(QWidget *parent = {});
     ~MainWindow();
 
+private slots:
+    void setColor();
+
 private:
     void setupButtonGroup();
 

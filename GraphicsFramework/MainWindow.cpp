@@ -2,6 +2,7 @@
 #include "ui_MainWindow.h"
 #include "MyScene.h"
 #include <QActionGroup>
+#include <QColorDialog>
 
 MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent),
@@ -10,12 +11,25 @@ MainWindow::MainWindow(QWidget *parent) :
     ui->setupUi(this);
     ui->graphicsView->setScene(new MyScene(this));
 
+    connect(ui->setColorAct, &QAction::triggered, this, &MainWindow::setColor);
+
     setupButtonGroup();
 }
 
 MainWindow::~MainWindow()
 {
     delete ui;
+}
+
+void MainWindow::setColor()
+{
+    MyScene *scene = static_cast<MyScene *>(ui->graphicsView->scene());
+    const QColor &color = QColorDialog::getColor(scene->color(), this,
+                           tr("Color for scene pen"));
+
+    if (color.isValid()){
+        scene->setColor(color);
+    }
 }
 
 void MainWindow::setupButtonGroup()

@@ -7,8 +7,19 @@ MyScene::MyScene(QObject *parent)
     , current_{}
     , drawingInProgress_{}
     , startPoint_{}
+    , color_{}
 {
     setSceneRect(0, 0, 500, 500);
+}
+
+void MyScene::setColor(const QColor &color)
+{
+    color_ = color;
+}
+
+QColor MyScene::color() const
+{
+    return color_;
 }
 
 void MyScene::mousePressEvent(QGraphicsSceneMouseEvent *event)
@@ -17,6 +28,7 @@ void MyScene::mousePressEvent(QGraphicsSceneMouseEvent *event)
         startPoint_ = event->scenePos();
         drawingInProgress_ = true;
         current_ = new QGraphicsRectItem({startPoint_, startPoint_});
+        current_->setPen(color_);
         current_->setFlags(QGraphicsItem::ItemIsMovable | QGraphicsItem::ItemIsSelectable);
         addItem(current_);
     }

@@ -58,6 +58,7 @@
     <property name="title">
      <string>&amp;Tools</string>
     </property>
+    <addaction name="setColorAct"/>
    </widget>
    <addaction name="menuFile"/>
    <addaction name="menu_What"/>
@@ -109,6 +110,11 @@
    </property>
    <property name="text">
     <string>&amp;Ellipce</string>
+   </property>
+  </action>
+  <action name="setColorAct">
+   <property name="text">
+    <string>Set &amp;color</string>
    </property>
   </action>
  </widget>
