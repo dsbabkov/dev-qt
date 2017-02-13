@@ -15,19 +15,6 @@
   </property>
   <widget class="QWidget" name="centralWidget">
    <layout class="QGridLayout" name="gridLayout">
-    <item row="0" column="1" rowspan="7">
-     <widget class="Glass" name="glass" native="true">
-      <property name="focusPolicy">
-       <enum>Qt::StrongFocus</enum>
-      </property>
-      <property name="rowCount" stdset="0">
-       <UInt>20</UInt>
-      </property>
-      <property name="columnCount" stdset="0">
-       <UInt>10</UInt>
-      </property>
-     </widget>
-    </item>
     <item row="2" column="2">
      <widget class="QPushButton" name="exitBtn">
       <property name="text">
@@ -35,7 +22,7 @@
       </property>
      </widget>
     </item>
-    <item row="5" column="2">
+    <item row="6" column="2">
      <widget class="QLCDNumber" name="scoreLCD">
       <property name="segmentStyle">
        <enum>QLCDNumber::Flat</enum>
@@ -45,7 +32,7 @@
       </property>
      </widget>
     </item>
-    <item row="6" column="2">
+    <item row="7" column="2">
      <spacer name="verticalSpacer_2">
       <property name="orientation">
        <enum>Qt::Vertical</enum>
@@ -58,7 +45,7 @@
       </property>
      </spacer>
     </item>
-    <item row="3" column="2">
+    <item row="4" column="2">
      <spacer name="verticalSpacer">
       <property name="orientation">
        <enum>Qt::Vertical</enum>
@@ -71,7 +58,7 @@
       </property>
      </spacer>
     </item>
-    <item row="4" column="2">
+    <item row="5" column="2">
      <widget class="QLabel" name="label_2">
       <property name="text">
        <string>Score</string>
@@ -88,7 +75,7 @@
       </property>
      </widget>
     </item>
-    <item row="0" column="0" rowspan="7">
+    <item row="0" column="0" rowspan="8">
      <layout class="QVBoxLayout" name="verticalLayout">
       <item>
        <widget class="QLabel" name="label">
@@ -125,6 +112,26 @@
       </item>
      </layout>
     </item>
+    <item row="0" column="1" rowspan="8">
+     <widget class="Glass" name="glass" native="true">
+      <property name="focusPolicy">
+       <enum>Qt::StrongFocus</enum>
+      </property>
+      <property name="rowCount" stdset="0">
+       <UInt>20</UInt>
+      </property>
+      <property name="columnCount" stdset="0">
+       <UInt>10</UInt>
+      </property>
+     </widget>
+    </item>
+    <item row="3" column="2">
+     <widget class="QPushButton" name="debugPause">
+      <property name="text">
+       <string>Debug pause</string>
+      </property>
+     </widget>
+    </item>
    </layout>
   </widget>
   <widget class="QMenuBar" name="menuBar">
@@ -133,7 +140,7 @@
      <x>0</x>
      <y>0</y>
      <width>400</width>
-     <height>22</height>
+     <height>21</height>
     </rect>
    </property>
    <widget class="QMenu" name="menuGame">
@@ -232,8 +239,8 @@
    </hints>
   </connection>
   <connection>
-   <sender>newGameBtn</sender>
-   <signal>clicked()</signal>
+   <sender>newGameAct</sender>
+   <signal>triggered()</signal>
    <receiver>glass</receiver>
    <slot>startNewGame()</slot>
    <hints>

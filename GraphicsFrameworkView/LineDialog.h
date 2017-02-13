@@ -19,6 +19,8 @@ public:
     explicit LineDialog(QWidget *parent = {});
     ~LineDialog();
 
+    static QVector<NamedPenStyle> penStyles();
+
 signals:
     void penChanged(const QPen &) const;
     void penAccepted(const QPen &) const;
@@ -27,7 +29,6 @@ public slots:
     void setPen(const QPen &uiPen);
 
 private:
-    QVector<NamedPenStyle> penStyles() const;
     void fillStylerCombo() const;
 
     QPen uiPen() const;

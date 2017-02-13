@@ -9,6 +9,7 @@ MainWindow::MainWindow(QWidget *parent) :
     ui->setupUi(this);
     connect(ui->glass, &Glass::scoreChanged, ui->scoreLCD, static_cast<void (QLCDNumber::*)(int)>(&QLCDNumber::display));
     connect(ui->glass, &Glass::nextFigureChanged, ui->nextFigure, &NextFigure::setFigure);
+    connect(ui->debugPause, &QPushButton::clicked, ui->glass, &Glass::debugPause);
 }
 
 MainWindow::~MainWindow()

@@ -29,6 +29,7 @@ public slots:
     void setColumnCount(uint columnCount);
     void startNewGame();
     void moveFigureDown();
+    void debugPause();
 
 protected:
     virtual void paintEvent(QPaintEvent *) override;
@@ -56,7 +57,7 @@ signals:
     void nextFigureChanged(Figure *);
 
 private:
-    static constexpr int timerInterval = 200;
+    static constexpr int timerInterval = 400;
 
     uint rowCount_;
     uint columnCount_;

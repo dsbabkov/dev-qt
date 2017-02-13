@@ -54,6 +54,10 @@ void Glass::startNewGame()
     score_ = 0;
     emit scoreChanged(0);
 
+    if (timerId_){
+        killTimer(timerId_);
+    }
+
     timerId_ = startTimer(timerInterval);
 
     qDebug() << "New game started";
@@ -78,6 +82,22 @@ void Glass::moveFigureDown()
         currentFigure_->moveDown();
     }
     update();
+}
+
+void Glass::debugPause()
+{
+    qDebug() << "Debug paused";
+
+    for (int i = 0; i < static_cast<int>(rowCount_); ++i){
+        QString rowStr;
+        for (int j = 0; j < static_cast<int>(columnCount_); ++j){
+            const QColor &color = field_.at(i).at(j);
+            rowStr += color.name() + " ";
+        }
+        qDebug() << rowStr;
+    }
+
+    removeLines();
 }
 
 void Glass::paintEvent(QPaintEvent *)
@@ -123,7 +143,9 @@ void Glass::keyPressEvent(QKeyEvent *event)
 
 void Glass::timerEvent(QTimerEvent *)
 {
-    moveFigureDown();
+    if (running_){
+        moveFigureDown();
+    }
 }
 
 void Glass::createEmptyField()
@@ -193,6 +215,13 @@ QVector<QPoint> Glass::findLineToRemove() const
             lastColor = cellColor;
             lastColorRow = i;
         }
+        if (rowCount_ - lastColorRow >= 3 && lastColor != emptyCellColor){
+            QVector<QPoint> result;
+            for (int k = lastColorRow; k < static_cast<int>(rowCount_); ++k){
+                result.append({k, j});
+            }
+            return result;
+        }
     }
 
     //rows
@@ -215,6 +244,13 @@ QVector<QPoint> Glass::findLineToRemove() const
             lastColor = cellColor;
             lastColorColumn = j;
         }
+        if (columnCount_ - lastColorColumn >= 3 && lastColor != emptyCellColor){
+            QVector<QPoint> result;
+            for (int k = lastColorColumn; k < static_cast<int>(columnCount_); ++k){
+                result.append({i, k});
+            }
+            return result;
+        }
     }
 
     return {};
@@ -235,8 +271,11 @@ void Glass::removeLines()
             score_ += removeCells.count();
             emit scoreChanged(score_);
         }
+        for (const QPoint &cell: removeCells){
+            field_[cell.x()][cell.y()] = emptyCellColor;
+        }
+        squeezeField();
     }
-    squeezeField();
 }
 
 void Glass::squeezeField()

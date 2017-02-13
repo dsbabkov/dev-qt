@@ -4,4 +4,5 @@ SUBDIRS = spider \
     Sig_slots_layout \
     designer \
     tetris \
-    GraphicsFramework
+    GraphicsFramework \
+    GraphicsFrameworkView

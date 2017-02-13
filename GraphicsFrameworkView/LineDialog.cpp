@@ -49,7 +49,7 @@ void LineDialog::setPen(const QPen &pen)
     pen_ = pen;
 }
 
-QVector<NamedPenStyle> LineDialog::penStyles() const
+QVector<NamedPenStyle> LineDialog::penStyles()
 {
     return {
         {tr("Solid"), Qt::SolidLine},
@@ -79,3 +79,4 @@ QPen LineDialog::uiPen() const
 
     return result;
 }
+

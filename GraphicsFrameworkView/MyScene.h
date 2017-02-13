@@ -1,13 +1,9 @@
 #pragma once
 
 #include <QGraphicsScene>
+#include "MyRect.h"
 
-class QAbstractGraphicsShapeItem;
-
-enum FugureType{
-    Rectangle,
-    Ellipce
-};
+class QGraphicsRectItem;
 
 class MyScene : public QGraphicsScene
 {
@@ -18,13 +14,13 @@ public:
     void setColor(const QColor &color);
     QColor color() const;
 
-    void setFigureType(FugureType figureType);
-
 signals:
     void penChanged(const QPen &) const;
+    void shapeAdded(const MyRect &);
 
 public slots:
     void setPen(const QPen &pen);
+    void selectShape(const MyRect &rect);
 
 protected:
     virtual void mousePressEvent(QGraphicsSceneMouseEvent *event) override;
@@ -32,9 +28,8 @@ protected:
     virtual void mouseReleaseEvent(QGraphicsSceneMouseEvent *event) override;
 
 private:
-    QAbstractGraphicsShapeItem *current_;
+    QGraphicsRectItem *current_;
     bool drawingInProgress_;
     QPointF startPoint_;
     QPen pen_;
-    FugureType figureType_;
 };

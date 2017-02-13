@@ -4,17 +4,27 @@
 #include <QActionGroup>
 #include <QColorDialog>
 #include "LineDialog.h"
+#include "MyModel.h"
 
 MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent),
     ui(new Ui::MainWindow)
 {
     ui->setupUi(this);
-    ui->graphicsView->setScene(new MyScene(this));
+    MyScene *scene = new MyScene(this);
+    ui->graphicsView->setScene(scene);
+
+    MyModel *model = new MyModel(this);
+    ui->tableView->setModel(model);
+    ui->tableView->horizontalHeader()->setSectionResizeMode(QHeaderView::Stretch);
+    connect(scene, &MyScene::shapeAdded, model, &MyModel::addShape);
+
+    connect(ui->tableView->selectionModel(), &QItemSelectionModel::currentRowChanged, [scene, model](const QModelIndex &index){
+        scene->selectShape(model->rectAt(index.row()));
+    });
 
     connect(ui->setColorAct, &QAction::triggered, this, &MainWindow::setColor);
 
-    setupButtonGroup();
     createLineEditDialog();
 
     connect(ui->rotateBtn, &QPushButton::clicked, [this]{ui->graphicsView->rotate(ui->angleSpn->value());});
@@ -36,23 +46,6 @@ void MainWindow::setColor()
     if (color.isValid()){
         scene->setColor(color);
     }
-}
-
-void MainWindow::setupButtonGroup()
-{
-    QActionGroup *actionGroup = new QActionGroup(this);
-
-    actionGroup->addAction(ui->rectangleAct);
-    actionGroup->addAction(ui->ellipceAct);
-
-    std::map<QAction *, FugureType> actionMap = {
-        {ui->rectangleAct, Rectangle},
-        {ui->ellipceAct, Ellipce}
-    };
-
-    MyScene *scene = static_cast<MyScene *>(ui->graphicsView->scene());
-
-    connect(actionGroup, &QActionGroup::triggered, [this, actionMap, scene](QAction *action){scene->setFigureType(actionMap.at(action));});
 }
 
 void MainWindow::createLineEditDialog()
