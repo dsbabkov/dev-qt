@@ -14,5 +14,8 @@ public:
     ~MainWindow();
 
 private:
+    void setupButtonGroup();
+
+private:
     Ui::MainWindow *ui;
 };

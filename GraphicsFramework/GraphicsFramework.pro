@@ -15,3 +15,6 @@ HEADERS  += MainWindow.h \
     MyScene.h
 
 FORMS    += MainWindow.ui
+
+RESOURCES += \
+    images.qrc

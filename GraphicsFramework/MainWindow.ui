@@ -11,7 +11,7 @@
    </rect>
   </property>
   <property name="windowTitle">
-   <string>MainWindow</string>
+   <string>GraphicsFramework</string>
   </property>
   <widget class="QWidget" name="centralWidget">
    <layout class="QGridLayout" name="gridLayout_2">
@@ -41,6 +41,27 @@
      <height>21</height>
     </rect>
    </property>
+   <widget class="QMenu" name="menuFile">
+    <property name="title">
+     <string>File</string>
+    </property>
+    <addaction name="exitAct"/>
+   </widget>
+   <widget class="QMenu" name="menu_What">
+    <property name="title">
+     <string>&amp;What</string>
+    </property>
+    <addaction name="rectangleAct"/>
+    <addaction name="ellipceAct"/>
+   </widget>
+   <widget class="QMenu" name="menu_Tools">
+    <property name="title">
+     <string>&amp;Tools</string>
+    </property>
+   </widget>
+   <addaction name="menuFile"/>
+   <addaction name="menu_What"/>
+   <addaction name="menu_Tools"/>
   </widget>
   <widget class="QToolBar" name="mainToolBar">
    <attribute name="toolBarArea">
@@ -49,10 +70,68 @@
    <attribute name="toolBarBreak">
     <bool>false</bool>
    </attribute>
+   <addaction name="exitAct"/>
+   <addaction name="rectangleAct"/>
+   <addaction name="ellipceAct"/>
   </widget>
   <widget class="QStatusBar" name="statusBar"/>
+  <action name="exitAct">
+   <property name="icon">
+    <iconset resource="images.qrc">
+     <normaloff>:/Images/iconExit.ico</normaloff>:/Images/iconExit.ico</iconset>
+   </property>
+   <property name="text">
+    <string>&amp;Exit</string>
+   </property>
+  </action>
+  <action name="rectangleAct">
+   <property name="checkable">
+    <bool>true</bool>
+   </property>
+   <property name="checked">
+    <bool>true</bool>
+   </property>
+   <property name="icon">
+    <iconset resource="images.qrc">
+     <normaloff>:/Images/IconRect.ico</normaloff>:/Images/IconRect.ico</iconset>
+   </property>
+   <property name="text">
+    <string>&amp;Rectangle</string>
+   </property>
+  </action>
+  <action name="ellipceAct">
+   <property name="checkable">
+    <bool>true</bool>
+   </property>
+   <property name="icon">
+    <iconset resource="images.qrc">
+     <normaloff>:/Images/IconEllipse.ico</normaloff>:/Images/IconEllipse.ico</iconset>
+   </property>
+   <property name="text">
+    <string>&amp;Ellipce</string>
+   </property>
+  </action>
  </widget>
  <layoutdefault spacing="6" margin="11"/>
- <resources/>
- <connections/>
+ <resources>
+  <include location="images.qrc"/>
+ </resources>
+ <connections>
+  <connection>
+   <sender>exitAct</sender>
+   <signal>triggered()</signal>
+   <receiver>MainWindow</receiver>
+   <slot>close()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>-1</x>
+     <y>-1</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>199</x>
+     <y>149</y>
+    </hint>
+   </hints>
+  </connection>
+ </connections>
 </ui>
