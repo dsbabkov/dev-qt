@@ -22,6 +22,9 @@ public:
 public slots:
     void addShape(const MyRect &rect);
 
+signals:
+    void shapeChanged(const MyRect &);
+
 private:
     void initializeHeaderData();
 

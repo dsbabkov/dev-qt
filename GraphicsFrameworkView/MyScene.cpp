@@ -50,6 +50,17 @@ void MyScene::selectShape(const MyRect &rect)
     }
 }
 
+void MyScene::changeShape(const MyRect &rect)
+{
+    for (QGraphicsItem *item: items()){
+        QGraphicsRectItem *rectItem = static_cast<QGraphicsRectItem *>(item);
+        if (rectItem->rect() == rect.rect()){
+            rectItem->setPen(rect.pen());
+            return;
+        }
+    }
+}
+
 void MyScene::mousePressEvent(QGraphicsSceneMouseEvent *event)
 {
     if (event->button() == Qt::RightButton){

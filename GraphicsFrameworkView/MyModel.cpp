@@ -113,6 +113,7 @@ bool MyModel::setData(const QModelIndex &index, const QVariant &value, int role)
 
     if (setFunction(index.row(), value)){
         emit dataChanged(index, index);
+        emit shapeChanged(scetch_.at(index.row()));
         return true;
     }
     return false;

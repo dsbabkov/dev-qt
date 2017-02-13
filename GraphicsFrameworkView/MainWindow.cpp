@@ -18,6 +18,7 @@ MainWindow::MainWindow(QWidget *parent) :
     ui->tableView->setModel(model);
     ui->tableView->horizontalHeader()->setSectionResizeMode(QHeaderView::Stretch);
     connect(scene, &MyScene::shapeAdded, model, &MyModel::addShape);
+    connect(model, &MyModel::shapeChanged, scene, &MyScene::changeShape);
 
     connect(ui->tableView->selectionModel(), &QItemSelectionModel::currentRowChanged, [scene, model](const QModelIndex &index){
         scene->selectShape(model->rectAt(index.row()));

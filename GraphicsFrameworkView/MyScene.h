@@ -21,6 +21,7 @@ signals:
 public slots:
     void setPen(const QPen &pen);
     void selectShape(const MyRect &rect);
+    void changeShape(const MyRect &rect);
 
 protected:
     virtual void mousePressEvent(QGraphicsSceneMouseEvent *event) override;
