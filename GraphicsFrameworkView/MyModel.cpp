@@ -1,15 +1,7 @@
 #include "MyModel.h"
 #include <functional>
 #include "LineDialog.h"
-
-namespace {
-    enum class Column{
-        Color,
-        Style,
-        Width,
-        ColumnCount
-    };
-}
+#include "MyModelColumns.h"
 
 MyModel::MyModel(QObject *parent)
     : QAbstractTableModel{parent}
@@ -156,7 +148,8 @@ QVariant MyModel::colorData(int row, int role) const
         px.fill(color);
         return px;
     }
-    else if (role == Qt::DisplayRole){
+    else if (role == Qt::DisplayRole ||
+             role == Qt::EditRole){
         return color;
     }
 

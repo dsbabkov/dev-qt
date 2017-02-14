@@ -5,6 +5,7 @@
 #include <QColorDialog>
 #include "LineDialog.h"
 #include "MyModel.h"
+#include "MyDelegate.h"
 
 MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent),
@@ -17,6 +18,7 @@ MainWindow::MainWindow(QWidget *parent) :
     MyModel *model = new MyModel(this);
     ui->tableView->setModel(model);
     ui->tableView->horizontalHeader()->setSectionResizeMode(QHeaderView::Stretch);
+    ui->tableView->setItemDelegate(new MyDelegate(this));
     connect(scene, &MyScene::shapeAdded, model, &MyModel::addShape);
     connect(model, &MyModel::shapeChanged, scene, &MyScene::changeShape);
 

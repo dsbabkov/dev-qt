@@ -14,14 +14,17 @@ SOURCES += main.cpp\
     LineDialog.cpp \
     LineExample.cpp \
     MyRect.cpp \
-    MyModel.cpp
+    MyModel.cpp \
+    MyDelegate.cpp
 
 HEADERS  += MainWindow.h \
     MyScene.h \
     LineDialog.h \
     LineExample.h \
     MyRect.h \
-    MyModel.h
+    MyModel.h \
+    MyDelegate.h \
+    MyModelColumns.h
 
 FORMS    += MainWindow.ui \
     LineDialog.ui
