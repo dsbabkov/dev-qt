@@ -6,6 +6,7 @@
 #include "LineDialog.h"
 #include "MyModel.h"
 #include "MyDelegate.h"
+#include "DataBaseManager.h"
 
 MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent),
@@ -21,6 +22,8 @@ MainWindow::MainWindow(QWidget *parent) :
     ui->tableView->setItemDelegate(new MyDelegate(this));
     connect(scene, &MyScene::shapeAdded, model, &MyModel::addShape);
     connect(model, &MyModel::shapeChanged, scene, &MyScene::changeShape);
+    connect(model, &MyModel::cleared, scene, &MyScene::clear);
+    connect(ui->clearAct, &QAction::triggered, model, &MyModel::clear);
 
     connect(ui->tableView->selectionModel(), &QItemSelectionModel::currentRowChanged, [scene, model](const QModelIndex &index){
         scene->selectShape(model->rectAt(index.row()));
@@ -33,6 +36,8 @@ MainWindow::MainWindow(QWidget *parent) :
     connect(ui->rotateBtn, &QPushButton::clicked, [this]{ui->graphicsView->rotate(ui->angleSpn->value());});
     connect(ui->scaleBtn, &QPushButton::clicked, [this]{ui->graphicsView->scale(ui->scaleFactorSpn->value(), ui->scaleFactorSpn->value());});
     connect(ui->shearBtn, &QPushButton::clicked, [this]{ui->graphicsView->shear(ui->shearXSpn->value(), ui->shearYSpn->value());});
+
+    createDatabaseManager();
 }
 
 MainWindow::~MainWindow()
@@ -59,4 +64,11 @@ void MainWindow::createLineEditDialog()
     MyScene *scene = static_cast<MyScene *>(ui->graphicsView->scene());
     connect(lineDialog, &LineDialog::penAccepted, scene, &MyScene::setPen);
     connect(scene, &MyScene::penChanged, lineDialog, &LineDialog::setPen);
+}
+
+void MainWindow::createDatabaseManager()
+{
+    DataBaseManager *dbMan = new DataBaseManager(this);
+
+    connect(ui->createConnectionAct, &QAction::triggered, dbMan, &DataBaseManager::createConnection);
 }

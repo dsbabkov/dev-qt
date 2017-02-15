@@ -37,9 +37,7 @@ void MyScene::setPen(const QPen &pen)
 
 void MyScene::selectShape(const MyRect &rect)
 {
-    for (QGraphicsItem *item: selectedItems()){
-        item->setSelected(false);
-    }
+    clearSelection();
 
     for (QGraphicsItem *item: items()){
         QGraphicsRectItem *rectItem = static_cast<QGraphicsRectItem *>(item);

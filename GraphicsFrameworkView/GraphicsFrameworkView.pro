@@ -1,4 +1,4 @@
-QT       += core gui
+QT       += core gui sql
 
 greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
 
@@ -15,7 +15,8 @@ SOURCES += main.cpp\
     LineExample.cpp \
     MyRect.cpp \
     MyModel.cpp \
-    MyDelegate.cpp
+    MyDelegate.cpp \
+    DataBaseManager.cpp
 
 HEADERS  += MainWindow.h \
     MyScene.h \
@@ -24,7 +25,8 @@ HEADERS  += MainWindow.h \
     MyRect.h \
     MyModel.h \
     MyDelegate.h \
-    MyModelColumns.h
+    MyModelColumns.h \
+    DataBaseManager.h
 
 FORMS    += MainWindow.ui \
     LineDialog.ui

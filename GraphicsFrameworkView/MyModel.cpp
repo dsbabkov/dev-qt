@@ -83,6 +83,10 @@ Qt::ItemFlags MyModel::flags(const QModelIndex &index) const
         return {};
     }
 
+    if (index.column() == static_cast<int>(Column::Color)){
+        return QAbstractTableModel::flags(index);
+    }
+
     return QAbstractTableModel::flags(index) | Qt::ItemIsEditable;
 }
 
@@ -111,6 +115,18 @@ bool MyModel::setData(const QModelIndex &index, const QVariant &value, int role)
     return false;
 }
 
+bool MyModel::removeRows(int row, int count, const QModelIndex &parent)
+{
+    if (parent != QModelIndex()){
+        return false;
+    }
+
+    beginRemoveRows(parent, row, row + count - 1);
+    scetch_.remove(row, count);
+    endRemoveRows();
+    return true;
+}
+
 MyRect MyModel::rectAt(int id) const
 {
     return scetch_.at(id);
@@ -121,6 +137,12 @@ void MyModel::addShape(const MyRect &rect)
     const int index = rowCount();
     insertRow(index);
     scetch_[index] = rect;
+}
+
+void MyModel::clear()
+{
+    removeRows(0, rowCount());
+    emit cleared();
 }
 
 void MyModel::initializeHeaderData()

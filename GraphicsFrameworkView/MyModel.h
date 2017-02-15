@@ -16,14 +16,17 @@ public:
     virtual bool insertRows(int row, int count, const QModelIndex &parent = {}) override;
     virtual Qt::ItemFlags flags(const QModelIndex &index) const override;
     virtual bool setData(const QModelIndex &index, const QVariant &value, int role) override;
+    virtual bool removeRows(int row, int count, const QModelIndex &parent = {}) override;
 
     MyRect rectAt(int id) const;
 
 public slots:
     void addShape(const MyRect &rect);
+    void clear();
 
 signals:
     void shapeChanged(const MyRect &);
+    void cleared();
 
 private:
     void initializeHeaderData();

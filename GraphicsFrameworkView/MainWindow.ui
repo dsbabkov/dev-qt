@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>668</width>
-    <height>479</height>
+    <height>520</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -48,7 +48,7 @@
      <x>0</x>
      <y>0</y>
      <width>668</width>
-     <height>21</height>
+     <height>19</height>
     </rect>
    </property>
    <widget class="QMenu" name="menuFile">
@@ -63,9 +63,23 @@
     </property>
     <addaction name="setColorAct"/>
     <addaction name="lineEditAct"/>
+    <addaction name="separator"/>
+    <addaction name="clearAct"/>
+   </widget>
+   <widget class="QMenu" name="menuBD">
+    <property name="title">
+     <string>BD</string>
+    </property>
+    <addaction name="createConnectionAct"/>
+    <addaction name="createTableAct"/>
+    <addaction name="writeToBdAct"/>
+    <addaction name="readFromBdAct"/>
+    <addaction name="queryModelAct"/>
+    <addaction name="tableModelAct"/>
    </widget>
    <addaction name="menuFile"/>
    <addaction name="menu_Tools"/>
+   <addaction name="menuBD"/>
   </widget>
   <widget class="QToolBar" name="mainToolBar">
    <attribute name="toolBarArea">
@@ -189,7 +203,7 @@
   </widget>
   <action name="exitAct">
    <property name="icon">
-    <iconset resource="../GraphicsFramework/images.qrc">
+    <iconset resource="images.qrc">
      <normaloff>:/Images/iconExit.ico</normaloff>:/Images/iconExit.ico</iconset>
    </property>
    <property name="text">
@@ -206,10 +220,45 @@
     <string>Line edit...</string>
    </property>
   </action>
+  <action name="clearAct">
+   <property name="text">
+    <string>Clear</string>
+   </property>
+  </action>
+  <action name="createConnectionAct">
+   <property name="text">
+    <string>Create connection</string>
+   </property>
+  </action>
+  <action name="createTableAct">
+   <property name="text">
+    <string>Create table</string>
+   </property>
+  </action>
+  <action name="writeToBdAct">
+   <property name="text">
+    <string>Write to BD</string>
+   </property>
+  </action>
+  <action name="readFromBdAct">
+   <property name="text">
+    <string>Read from BD</string>
+   </property>
+  </action>
+  <action name="queryModelAct">
+   <property name="text">
+    <string>Query model</string>
+   </property>
+  </action>
+  <action name="tableModelAct">
+   <property name="text">
+    <string>Table model</string>
+   </property>
+  </action>
  </widget>
  <layoutdefault spacing="6" margin="11"/>
  <resources>
-  <include location="../GraphicsFramework/images.qrc"/>
+  <include location="images.qrc"/>
  </resources>
  <connections>
   <connection>
