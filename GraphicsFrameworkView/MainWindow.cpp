@@ -8,6 +8,7 @@
 #include "MyDelegate.h"
 #include "DataBaseManager.h"
 #include <QSqlTableModel>
+#include <QSqlQueryModel>
 
 MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent),
@@ -40,6 +41,7 @@ MainWindow::MainWindow(QWidget *parent) :
 
     createDatabaseManager();
     connect(ui->tableModelAct, &QAction::triggered, this, &MainWindow::showSqlTableView);
+    connect(ui->queryModelAct, &QAction::triggered, this, &MainWindow::showSqlQueryView);
 }
 
 MainWindow::~MainWindow()
@@ -87,6 +89,7 @@ void MainWindow::showSqlTableView()
 
     QSqlTableModel model;
     model.setTable("rectangle");
+    model.setEditStrategy(QSqlTableModel::OnFieldChange);
     model.select();
 
     QTableView view;
@@ -94,4 +97,22 @@ void MainWindow::showSqlTableView()
 
     dialog.layout()->addWidget(&view);
     dialog.exec();
+}
+
+void MainWindow::showSqlQueryView()
+{
+    QDialog dialog;
+    dialog.setLayout(new QVBoxLayout(&dialog));
+
+    QSqlQueryModel model;
+    model.setQuery("SELECT * "
+                   "FROM rectangle");
+//    model.query();
+
+    QTableView view;
+    view.setModel(&model);
+
+    dialog.layout()->addWidget(&view);
+    dialog.exec();
+
 }
