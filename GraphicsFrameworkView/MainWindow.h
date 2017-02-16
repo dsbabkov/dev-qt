@@ -19,6 +19,7 @@ private slots:
 private:
     void createLineEditDialog();
     void createDatabaseManager();
+    void showSqlTableView();
 
 private:
     Ui::MainWindow *ui;

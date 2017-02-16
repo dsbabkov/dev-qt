@@ -7,6 +7,7 @@
 #include "MyModel.h"
 #include "MyDelegate.h"
 #include "DataBaseManager.h"
+#include <QSqlTableModel>
 
 MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent),
@@ -38,6 +39,7 @@ MainWindow::MainWindow(QWidget *parent) :
     connect(ui->shearBtn, &QPushButton::clicked, [this]{ui->graphicsView->shear(ui->shearXSpn->value(), ui->shearYSpn->value());});
 
     createDatabaseManager();
+    connect(ui->tableModelAct, &QAction::triggered, this, &MainWindow::showSqlTableView);
 }
 
 MainWindow::~MainWindow()
@@ -76,4 +78,20 @@ void MainWindow::createDatabaseManager()
                     static_cast<MyModel *>(ui->tableView->model())->rects());});
     connect(ui->readFromBdAct, &QAction::triggered, dbMan, &DataBaseManager::readTable);
     connect(dbMan, &DataBaseManager::shapeRead, static_cast<MyScene *>(ui->graphicsView->scene()), &MyScene::addShape);
+}
+
+void MainWindow::showSqlTableView()
+{
+    QDialog dialog;
+    dialog.setLayout(new QVBoxLayout(&dialog));
+
+    QSqlTableModel model;
+    model.setTable("rectangle");
+    model.select();
+
+    QTableView view;
+    view.setModel(&model);
+
+    dialog.layout()->addWidget(&view);
+    dialog.exec();
 }
