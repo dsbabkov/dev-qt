@@ -74,4 +74,6 @@ void MainWindow::createDatabaseManager()
     connect(ui->createTableAct, &QAction::triggered, dbMan, &DataBaseManager::createTable);
     connect(ui->writeToBdAct, &QAction::triggered, [this, dbMan]{dbMan->writeTable(
                     static_cast<MyModel *>(ui->tableView->model())->rects());});
+    connect(ui->readFromBdAct, &QAction::triggered, dbMan, &DataBaseManager::readTable);
+    connect(dbMan, &DataBaseManager::shapeRead, static_cast<MyScene *>(ui->graphicsView->scene()), &MyScene::addShape);
 }

@@ -59,6 +59,12 @@ void MyScene::changeShape(const MyRect &rect)
     }
 }
 
+void MyScene::addShape(const MyRect &rect)
+{
+    this->addRect(rect.rect(), rect.pen());
+    emit shapeAdded(rect);
+}
+
 void MyScene::mousePressEvent(QGraphicsSceneMouseEvent *event)
 {
     if (event->button() == Qt::RightButton){

@@ -56,3 +56,16 @@ void DataBaseManager::writeTable(const QVector<MyRect> &rects) const
     }
     qDebug() << "No data to write";
 }
+
+void DataBaseManager::readTable() const
+{
+    QSqlQuery q ("SELECT color, pen_style, pen_width, left, top, width, height "
+                 "FROM rectangle");
+    enum {Color, PenStyle, PenWidth, Left, Top, Width, Height};
+    while (q.next()){
+        emit shapeRead(MyRect (
+                           QRectF(q.value(Left).toDouble(), q.value(Top).toDouble(), q.value(Width).toDouble(), q.value(Height).toDouble()),
+                           QPen(QBrush(q.value(Color).value<QColor>()), q.value(PenWidth).toDouble(), q.value(PenStyle).value<Qt::PenStyle>())
+                           ));
+    }
+}
