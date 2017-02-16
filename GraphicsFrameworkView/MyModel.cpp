@@ -132,6 +132,11 @@ MyRect MyModel::rectAt(int id) const
     return scetch_.at(id);
 }
 
+QVector<MyRect> MyModel::rects() const
+{
+    return scetch_;
+}
+
 void MyModel::addShape(const MyRect &rect)
 {
     const int index = rowCount();

@@ -1,6 +1,7 @@
 #pragma once
 
 #include <QObject>
+#include "MyRect.h"
 
 class DataBaseManager: public QObject
 {
@@ -10,5 +11,7 @@ public:
     ~DataBaseManager() = default;
 
 public slots:
-    void createConnection();
+    void createConnection() const;
+    void createTable() const;
+    void writeTable(const QVector<MyRect> &rects) const;
 };

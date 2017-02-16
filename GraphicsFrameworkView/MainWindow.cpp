@@ -71,4 +71,7 @@ void MainWindow::createDatabaseManager()
     DataBaseManager *dbMan = new DataBaseManager(this);
 
     connect(ui->createConnectionAct, &QAction::triggered, dbMan, &DataBaseManager::createConnection);
+    connect(ui->createTableAct, &QAction::triggered, dbMan, &DataBaseManager::createTable);
+    connect(ui->writeToBdAct, &QAction::triggered, [this, dbMan]{dbMan->writeTable(
+                    static_cast<MyModel *>(ui->tableView->model())->rects());});
 }

@@ -19,6 +19,7 @@ public:
     virtual bool removeRows(int row, int count, const QModelIndex &parent = {}) override;
 
     MyRect rectAt(int id) const;
+    QVector<MyRect> rects() const;
 
 public slots:
     void addShape(const MyRect &rect);
